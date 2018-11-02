@@ -1,6 +1,8 @@
 import sqlite3
 import AdminFunction
 import UserFunction
+import getpass
+
 
 class ConnectDb:
     def __init__(self):
@@ -16,9 +18,9 @@ class ConnectDb:
             if userType.lower() == "admin" or userType.lower() == "a":
                 
                 user = input("Enter your account name: ")
-                password = input("Password: ")
+                password = getpass.getpass("Password : ")
                 with sqlite3.connect("movie.db") as db:
-                    curObject=db.cursor()
+                    curObject = db.cursor()
                     print(curObject)
                 loginQuery = curObject.execute("SELECT ROLE FROM MOVIEREVIEW WHERE USERNAME = '"+user+"' AND PASSWORD = '"+password+"'")
                 results=loginQuery.fetchone()
@@ -27,9 +29,10 @@ class ConnectDb:
             elif userType.lower() == "customer" or userType.lower() == "c":
                 
                 user = input("Enter your account name: ")
-                password = input("Password: ")
+                password = getpass.getpass("Password : ")
+                
                 with sqlite3.connect("movie.db") as db:
-                    curObject=db.cursor()
+                    curObject = db.cursor()
                 loginQuery = curObject.execute("SELECT ROLE FROM MOVIEREVIEW WHERE USERNAME = '"+user+"' AND PASSWORD = '"+password+"'")
                 results=loginQuery.fetchone()
                 print(results)
@@ -56,13 +59,16 @@ class ConnectDb:
                     print("Welcome "+user+"!")
                     af = AdminFunction.AdminFunction()
                     af.getAdminRoles()
+                    return af
                     break
                 else:
                     print("Welcome "+user+"!")
                     uf = UserFunction.UserFunction()
                     uf.getUserRoles()
+                    return uf
                     break
 
 dbase = ConnectDb()
 dbase.verifyLogin()
+
         
