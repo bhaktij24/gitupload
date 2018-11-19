@@ -6,6 +6,10 @@ import datetime
 from datetime import date
 from datetime import time
 from datetime import datetime
+import pandas as pd
+from tabulate import tabulate
+import plotly.plotly as py
+import plotly.graph_objs as go
 
 class comparison:
     global conn
@@ -143,14 +147,15 @@ class comparison:
 
         plt.show()
 
-
-
-c = comparison()
+"""c = comparison()
 c.comparison_data_budget_profit()
 c.genre_movies_performancetrend()
 c.movies_heavy_criticism()
 c.least_most_preferred_movies()
-c.noofdays_movies_theatres()
+c.noofdays_movies_theatres()"""
+
+
+
 
 
 
