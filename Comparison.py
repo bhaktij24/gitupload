@@ -26,6 +26,7 @@ class comparison:
         self.noofdayssuccessfulrun= []
         self. movie_genre_poll = []
         self.count = []
+        self.pollcategory =[]
    
 
     def comparison_data_budget_profit(self):
@@ -83,27 +84,22 @@ class comparison:
 
     def least_most_preferred_movies(self):
         #GRAPH 4 - COMPARISON GRAPH 4
-        curObj_genre_poll = conn.execute("SELECT MM.movie_genre,case when MR.poll_value<=4 then 'Low' when MR.poll_value>4 and MR.poll_value <=7 then 'Average' else 'High'\
+        curObj_genre_poll = conn.execute("SELECT case when MR.poll_value<=4 then 'Bad' when MR.poll_value>4 and MR.poll_value <=7 then 'Decent' else 'Great'\
                                          end as 'Poll_Category',count(MM.movies_id) as cnt from movies_metadata MM inner join movies_ratings MR \
-                                         on MM.movies_id=MR.movies_id group by MM.movie_genre,Poll_Category")
+                                         on MM.movies_id=MR.movies_id group by Poll_Category")
 
         for row in curObj_genre_poll:    
-            self. movie_genre_poll = self.movie_genre_poll + [row[0]]
-            self.pollvalue = self.pollvalue + [row[1]]
-            self.count=self.count+[row[2]]
-
-        self.movie_genre_poll =  sorted(list(self.movie_genre_poll))
-        self.pollvalue = sorted(list(self.pollvalue))
-        self.count=sorted(list(self.count))
-        print(self.movie_genre_poll)
-        print(self.pollvalue)
+            self.pollcategory=self.pollcategory+[row[0]]
+            self.count=self.count+[row[1]]
+        self.pollcategory=(list(self.pollcategory))
+        self.count =(list(self.count))
+        print(self.pollcategory)
         print(self.count)
-        y_pos = np.arange(len(self.movie_genre_poll))
          
-        plt.bar(y_pos, self.pollvalue, align='center', alpha=0.5)
-        plt.xticks(y_pos, self.movie_genre_poll)
-        plt.xlabel('MOVIE GENRE')
-        plt.ylabel('POLL VALUE')
+        plt.plot(self.pollcategory, self.count, linewidth=2.0)
+              
+        plt.xlabel('POLL CATEGORY')
+        plt.ylabel('COUNT')
         plt.title('COMPARISON OF LEAST AND MOST PREFERRED MOVIES BASED ON POLL VALUE')
          
         plt.show()
@@ -132,11 +128,11 @@ class comparison:
         plt.show()
 
 """c = comparison()
-#c.comparison_data_budget_profit()
-#c.genre_movies_performancetrend()
-c.movies_heavy_criticism()
-#c.least_most_preferred_movies()
-#c.noofdays_movies_theatres()"""
+c.comparison_data_budget_profit()
+c.genre_movies_performancetrend()
+#c.movies_heavy_criticism()
+c.least_most_preferred_movies()
+c.noofdays_movies_theatres()"""
 
 
 
