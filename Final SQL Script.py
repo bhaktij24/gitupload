@@ -1,6 +1,6 @@
 import sqlite3
 
-Connect to movies database
+#Connect to movies database
 conn = sqlite3.connect('movie.db')
 print("Opened database successfully")
 
