@@ -1,0 +1,268 @@
+import sqlite3
+
+Connect to movies database
+conn = sqlite3.connect('movie.db')
+print("Opened database successfully")
+
+conn.execute("drop table MOVIEREVIEW");
+conn.execute("drop table revenue");
+conn.execute("drop table movies_metadata");
+conn.execute("drop table movies_ratings");
+######################
+##conn.execute("delete from movies_ratings where 1=1");
+##conn.execute("delete from movies_metadata where 1=1");
+######################
+conn.execute("CREATE TABLE user_details\
+         (ID INTEGER PRIMARY KEY AUTOINCREMENT, \
+         ROLE            TEXT     NOT NULL,  \
+         USERNAME        CHAR(50),  \
+         PASSWORD       TEXT)");
+
+conn.execute('''CREATE TABLE movies_metadata
+         (movies_id INT PRIMARY KEY NOT NULL,
+          movie_title TEXT NOT NULL,
+          movie_genre CHAR(50),
+          movie_releaseDate DATE)''')
+
+#movies_ratings
+
+conn.execute('''CREATE TABLE movies_ratings
+         (ID INT NOT NULL,
+          movies_id INT NOT NULL,
+          poll_value TEXT(30),
+          comment CHAR(150),
+          PRIMARY KEY(ID,movies_id),
+          FOREIGN KEY(ID) REFERENCES user_details(ID),
+          FOREIGN KEY(movies_id) REFERENCES movies_metadata(movies_id))''')
+
+
+conn.execute('''CREATE TABLE revenue
+         (ID INT NOT NULL,
+          movies_id INT NOT NULL,
+          budget INT NOT NULL,
+          profit INT,
+          loss VARCHAR(50) NOT NULL,
+          revenue INT NOT NULL,
+          PRIMARY KEY(ID,movies_id),
+          FOREIGN KEY(ID) REFERENCES user_details(ID),
+          FOREIGN KEY(movies_id) REFERENCES movies_metadata(movies_id))''')
+####################
+conn.execute("INSERT INTO user_details (ROLE,USERNAME,PASSWORD) \
+      VALUES ('Admin', 'Scott', 'Tiger')");
+
+conn.execute("INSERT INTO user_details (ROLE,USERNAME,PASSWORD) \
+      VALUES ('End User', 'Joshua', 'Joshua' )");
+
+conn.execute("INSERT INTO user_details (ROLE,USERNAME,PASSWORD) \
+      VALUES ('End User', 'John', 'John' )");
+
+conn.execute("INSERT INTO user_details (ROLE,USERNAME,PASSWORD) \
+      VALUES ('End User', 'James', 'James' )");
+
+conn.execute("INSERT INTO user_details(ROLE,USERNAME,PASSWORD) \
+      VALUES ('End User', 'Frank ', 'Frank')");
+
+conn.execute("INSERT INTO user_details (ROLE,USERNAME,PASSWORD) \
+      VALUES ('End User', 'Jennie', 'Jennie' )");
+
+conn.execute("INSERT INTO user_details (ROLE,USERNAME,PASSWORD) \
+      VALUES ('End User', 'Emma', 'Emma' )");
+######################
+
+
+
+
+
+#######################
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (1, 'Thor: Ragnarok', 'Action', '2017-01-20')");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (2, 'Jumanji', 'Action', '2017-04-13' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (3, 'Wonder Woman ', 'Fantasy', '2017-12-10' )");
+
+conn.execute("INSERT INTO movies_metadata(movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (4, 'Baywatch', 'Action', '2017-09-05' )");
+
+conn.execute("INSERT INTO movies_metadata(movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (5, 'Justice League', 'Fantasy', '2017-01-02')");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate)\
+      VALUES (6, 'Dunkirk', 'Action', '2017-04-07' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (7, 'Logan', 'Drama/Science Fiction', '2017-05-13' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (8, 'Transformers', 'Action', '2017-09-14' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (9, 'Avengers', 'Action', '2017-03-19' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (10, 'Time Trap', 'Drama/Science Fiction', '2017-02-11')");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (11, 'Annihilation', 'Adventure', '2018-02-23')");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (12, 'Black Panther', 'Action', '2018-02-16' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (13, '12 Strong', 'Drama/History', '2018-01-19' )");
+
+conn.execute("INSERT INTO movies_metadata(movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (14, 'Deadpool 2', 'Adventure', '2018-05-18' )");
+
+conn.execute("INSERT INTO movies_metadata(movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (15, 'Jurassic World', 'Adventure', '2018-06-22')");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate)\
+      VALUES (16, 'Valley Girl', 'Romance', '2018-03-30' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (17, 'Skyscraper', 'Thriller', '2018-07-13' )");
+
+conn.execute("INSERT INTO movies_metadata (movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (18, 'The Nun', 'Thriller', '2018-09-07' )");
+
+conn.execute("INSERT INTO movies_metadata(movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (19, 'Fantastic Beasts: The Crimes of Grindelwald', 'Fantasy', '2018-11-05')");
+
+conn.execute("INSERT INTO movies_metadata(movies_id,movie_title,movie_genre,movie_releaseDate) \
+      VALUES (20, 'Pirates of the Caribbean: Dead Men Tell No Tales', 'Adventure', '2017-05-26')");
+
+#######################
+
+conn.execute('''ALTER TABLE movies_ratings ADD noofdayssuccessfulrun VARCHAR(50)''')
+#Insertion of values into the table movies_ratings
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (2,1, '7.9', 'The god of death, Hera, the heretofore unseen sthunder using his questionable wits to try to save the day as much as his brawn.','90')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (2,2, '7.0', 'We were pleasantly surprised with the quality of this remake.Not quite 10 stars because adult re-watch value is just not there.','80' )");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun ) \
+      VALUES (3,3, '7.5', 'This movie was average, at best. The story was very predictable, CGI was poor, and the story was phoned in','78' )");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (3,4, '5.6', 'I cannot believe I spent money to watch this movie in the cinema, this movie journey with Zac Efron.',67)");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun)\
+      VALUES (4,5, '6.5', 'I had such a good time watching JL, the crowd was cheering, laughing and applauding! This movie focuses on the Justice League members coming to know each other in order to take down the Apokolips outcast Stepenwolf.','80')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun)\
+      VALUES (4,6, '6.5', 'A technical masterpiece that is nearly devoid of palpable emotion and compelling characters.A truly boring and tedious movie.Disappointing film.','70')");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (5,7, '8.5', 'This is a wolverine movie aimed at adults and definitely not for small children. The story is set in the future and Logan is taking care of Charles Xavier who has grown old and is incapable of taking care of himself. ','67')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (5,8, '5.2', 'The movie cuts and jumps so much and so quickly (Some scenes are literally less than 20 seconds long... in succession...) that by the end of the first half you will feel dizzy from trying to follow.','85')");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (6,9, '6.9', 'Let me start by saying that I did not expect this movie to play out the way it did. The acting by Noomi Rapace is nothing but phenomenal.','56')");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (6,10, '6.5', 'I was pleasantly surprised by this small movie. thought I would have to do a lot of fast forwarding or quit in the middle, but watched the whole thing and enjoyed it','90')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (2,11, '6.9', 'Unsatisfying Experience','100')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (2,12, '7.4', 'Over-hyped - Not enough effort put into core aspects of a film','79')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (3,13, '6.6', 'Decent retelling of a true story almost too good to be true. Good war movie with authentic weapons','80')");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (3,14, '7.2', 'Bad-ass crazy kick-ass action sequel I ever saw. The action in this movie is so insanely crazy.','45')");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun)\
+      VALUES (4,15, '6.3', 'This is the first time I got bored during a Jurassic movie and kept looking on my watch to see when it would be over.  Its the blandest, most predictable and lazy part of the series so far.','50')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun)\
+      VALUES (4,16, '6.4', 'Top of the heap of  teen films . This movie is one of my all time favorite movies and is what made me a lifelong Nicolas Cage fan','78')");
+
+conn.execute("INSERT INTO movies_ratings(ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (4,17, '5.9', 'The Rock is Awesome, but this Movie is Mediocre. The movie has a lot of cliches of the genre and an antirealism feeling.','50')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+      VALUES (5,18, '5.6', 'I saw this movie earlier today. Sadly, it was so awful, a few people left the cinema. I wasted 10 Euro. Could have had a beer instead.','40')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+                VALUES (6,19, '7.1', ' What a DISGRACE to the magical world of JK Rowling..','90')");
+
+conn.execute("INSERT INTO movies_ratings (ID,movies_id,poll_value,comment,noofdayssuccessfulrun) \
+                VALUES (5,20, '6.6', 'A below average retread of previous pirates films','55')");
+
+############################
+
+#Insertion of values into the table revenue
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,19,200,315,'NA',800)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,1,180,315,'NA',800)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,2,150,800,'NA',900)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,3, 450,200,'NA',650 )");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,4,150,0,100,50)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,5,200,0,50,150)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,6,300,0,100,200)");
+
+conn.execute("INSERT INTO revenue(ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,7, 600,300,'NA',950)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,8,500,300,0,950)");
+
+conn.execute("INSERT INTO revenue(ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,9,700,300,0,1000)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,10,400,0,100,250)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,11,180,315,0,700)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,12,150,800,0,980)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,13,450,200,0,705)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,14,150,0,100,350)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,15,200,0,50,438)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue) \
+      VALUES (1,16,300,0,100,890)");
+
+conn.execute("INSERT INTO revenue(ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,17,600,300,0,345)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,18,600,300,0,860)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,19,622,100,0,800)");
+
+conn.execute("INSERT INTO revenue (ID,movies_id,budget,profit,loss,revenue)  \
+      VALUES (1,20,622,100,0,800)");
+
+conn.commit();
