@@ -9,7 +9,7 @@ from datetime import datetime
 import pandas as pd
 from tabulate import tabulate
 import plotly.plotly as py
-import plotly.graph_objs as go
+
 
 class comparison:
     global conn
@@ -85,42 +85,26 @@ class comparison:
         plt.show()
 
 
-    def comparisonbasedon_moviegenre_year_ratingsreceived(self):
+    def least_most_preferred_movies(self):
         #GRAPH 4 - COMPARISON GRAPH 4
-        curObject = conn.cursor()
-        sqlQuery1 = curObject.execute("select MM.movie_genre,avg(MR.poll_value) from movies_ratings MR inner join  \
-                                        movies_metadata MM on MM.movies_id = MR.movies_id where  \
-                                        strftime('%Y',MM.movie_releaseDate) = '2017' and MM.movie_genre in('Action','Adventure','Fantasy') group by MM.movie_genre \
-                                        order by MM.movie_genre")
-        resultRatings1 = sqlQuery1.fetchall()
-        print(resultRatings1)
-        sqlQuery2 = curObject.execute("select MM.movie_genre,avg(MR.poll_value) from movies_ratings MR inner join  \
-                                        movies_metadata MM on MM.movies_id = MR.movies_id where  \
-                                        strftime('%Y',MM.movie_releaseDate) = '2018' and MM.movie_genre in('Action','Adventure','Fantasy') group by MM.movie_genre \
-                                        order by MM.movie_genre")
-        resultRatings2 = sqlQuery2.fetchall()
-        print(resultRatings2)
-        genre17, ratings17 = zip(*resultRatings1)
-        genre18,ratings18 = zip(*resultRatings2)
-        print(genre17, ratings17,genre18,ratings18)
-        width = 0.35
-       
-        N = 3
-        ind = np.arange(N)
-        
-        p1 = plt.bar(ind, ratings17, width, color='green')
-        p2 = plt.bar(ind, ratings18, width,bottom=ratings17,color = 'blue')
-       
-        plt.ylabel('avg ratings')
-        plt.title('Comparison based on year and genre')
-        plt.xticks(ind, ('Action','Adventure','Fantasy'))
-        plt.yticks(np.arange(0, 10, 1))
-        
-
+        curObj_genre_poll = conn.execute("SELECT case when MR.poll_value<=5.8 then 'Bad' when MR.poll_value>5.8 and MR.poll_value <=7 then 'Decent' else 'Great'\
+                                         end as 'Poll_Category',count(MM.movies_id) as cnt from movies_metadata MM inner join movies_ratings MR \
+                                         on MM.movies_id=MR.movies_id group by Poll_Category")
+        for row in curObj_genre_poll:    
+            self.pollcategory=self.pollcategory+[row[0]]
+            self.count=self.count+[row[1]]
+        self.pollcategory=(list(self.pollcategory))
+        self.count =(list(self.count))
+        print(self.pollcategory)
+        print(self.count)
+         
+        plt.plot(self.pollcategory, self.count, linewidth=2.0)
+              
+        plt.xlabel('POLL CATEGORY')
+        plt.ylabel('COUNT')
+        plt.title('COMPARISON OF LEAST AND MOST PREFERRED MOVIES BASED ON POLL VALUE')
         plt.show()
-
-
-    
+         
 
     def noofdays_movies_theatres(self):
         #GRAPH 5 - COMPARISON GRAPH 5
@@ -146,12 +130,12 @@ class comparison:
 
         plt.show()
 
-#c = comparison()
-#c.comparison_data_budget_profit()
-#c.genre_movies_performancetrend()
-#c.movies_heavy_criticism()
-#c.comparisonbasedon_moviegenre_year_ratingsreceived()
-#c.noofdays_movies_theatres()
+"""c = comparison()
+c.comparison_data_budget_profit()
+c.genre_movies_performancetrend()
+c.movies_heavy_criticism()
+c.least_most_preferred_movies()
+c.noofdays_movies_theatres()"""
 
 
 
