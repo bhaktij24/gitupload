@@ -125,9 +125,7 @@ class comparison:
             self.count=self.count+[row[1]]
         self.pollcategory=(list(self.pollcategory))
         self.count =(list(self.count))
-        print(self.pollcategory)
-        print(self.count)
-         
+        
         #Display Line Plot
         plt.plot(self.pollcategory, self.count, linewidth=2.0)
               
@@ -141,15 +139,14 @@ class comparison:
     #noofdays_movies_theatres() compares movies and number of days successful run in theatres
     def noofdays_movies_theatres(self):
         #GRAPH 5 - COMPARISON GRAPH 5
-        curObj_noofdays = conn.execute("SELECT MM.movie_title, MR.noofdayssuccessfulrun from movies_metadata MM inner join movies_ratings MR on \
-                                        MM.movies_id=MR.movies_id")
+        curObj_noofdays = conn.execute("SELECT MM.movie_title, MM.noofdayssuccessfulrun from movies_metadata MM")
         for row in curObj_noofdays:    
             self.movies_ran_intheatre = self.movies_ran_intheatre + [row[0]]
             self.noofdayssuccessfulrun = self.noofdayssuccessfulrun + [row[1]]
             
-        self.movies_ran_intheatre =  sorted(list(self.movies_ran_intheatre))
-        self.noofdayssuccessfulrun = sorted(list(self.noofdayssuccessfulrun))
-
+        self.movies_ran_intheatre =  list(self.movies_ran_intheatre)
+        self.noofdayssuccessfulrun = list(self.noofdayssuccessfulrun)
+        
         df = pd.DataFrame({'MOVIES RAN IN THEATRE' : self.movies_ran_intheatre,
                            'NO OF DAYS OF SUCCESSFUL RUN':self.noofdayssuccessfulrun})
 
