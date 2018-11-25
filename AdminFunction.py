@@ -18,7 +18,7 @@ class AdminFunction:
             print("---------------Welcome ADMIN------------\n")
             Admin_Task = input("Enter the Comparison Analysis you want to do:\n\
                                1.Revenue based comparison according to movies released and Genres - Enter R/revenue\n\
-                               2.Comparison based on budget,profit,liking by end users,preferrance and criticism - Enter C/comparison\n\ ")
+                               2.Comparison based on budget,profit,liking by end users,preferrance and criticism - Enter C/comparison\n ")
     
             
             #Admin enters Revenue option and is asked to choose one from the 4 different analysis graphs
@@ -68,7 +68,7 @@ class AdminFunction:
                 comparison_graph_to_view = input("What kind of graph do you want to view?[y/n]\n\
                                                   Enter your Choice:\n\
                                                   1.Comparison Analysis of Budget allocated and Profit earned for all movies\n\
-                                                  2.Comparison Analysis of Genre of movies that had maximum good reviews and performed well\n \
+                                                  2.Comparison Analysis of Genre of movies that had maximum good reviews and performed well\n\
                                                   3.Comparison Analysis of Genre of movies that had maximum poor reviews and faced heavy criticism by End Users\n\
                                                   4.Comparison Analysis of Least and most Preferred movies for each year\n\
                                                   5.Comparison Analysis of Number of successful days movies ran in theatres\n")
