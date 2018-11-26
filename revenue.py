@@ -51,8 +51,6 @@ class revenue:
         for row in curObj_movie_year:
             self.release_year = self.release_year + [row[0]]
             self.noof_movies_released = self.noof_movies_released + [row[1]]
-            print(self.noof_movies_released)
-            print(self.release_year)
 
         #len() returns the length of the string        
         y_pos = np.arange(len(self.release_year))
@@ -80,9 +78,6 @@ class revenue:
             self.movies_each_genre = self.movies_each_genre + [row[0]]
             self.movie_title_year = self.movie_title_year + [row[1]]
             self.sum_revenues_each_genre = self.sum_revenues_each_genre+ [row[2]]
-        print(self.movies_each_genre)
-        print(self.sum_revenues_each_genre)
-        print(self.movie_title_year)
 
         self.movies_genre = list(self.movies_each_genre)
         self.sum_revenues = list(self.sum_revenues_each_genre)
@@ -108,14 +103,12 @@ class revenue:
 
         #To retrieve data after executing a SELECT statement,call fetchall() to get a list of the matching rows
         resultRatings1 = curObj_genre_count_year1.fetchall()
-        print(resultRatings1)
         
         curObj_genre_count_year2 = conn.execute("SELECT MM.movie_genre,count(MM.movies_id) from \
                                            movies_metadata MM where  \
                                            strftime('%Y',MM.movie_releaseDate) = '2018'\
                                            GROUP BY MM.movie_genre,strftime('%Y',MM.movie_releaseDate) order by MM.movie_genre,strftime('%Y',MM.movie_releaseDate);")
         resultRatings2 = curObj_genre_count_year2.fetchall()
-        print(resultRatings2)
         
         #The zip() function returns a zip object, which is an iterator of tuples where the first item in each passed iterator is paired together, and then the second item in each passed iterator are paired together etc
         genre17, count17 = zip(*resultRatings1)
