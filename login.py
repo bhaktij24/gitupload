@@ -3,19 +3,23 @@ import AdminFunction
 import UserFunction
 import string
 import getpass
-#import Register
 
 class ConnectDb:
+
+    ## connection to database and variables declaration
     global conn
     conn = sqlite3.connect('movie.db')
     user = ""
     password = ""
+
+    ##init method of class ConnectDb
+    
     def __init__(self):
         
         while True:
             print("Select action from below options:\n")
             print("1. Login\n2. Registration")
-            selectInput = input("Enter your selection(1/2): ")
+            selectInput = input("Enter your selection(1/2):\n")
             if selectInput == "1":
                 self.verifyLogin()
                 break
@@ -23,63 +27,76 @@ class ConnectDb:
                 self.createUser()
                 break
             else:
-                print("No such functionality available!")
-                again = input("Do you want to try again?(y/n):")
-                if again.lower() =="n":
-                    break
-                elif again.lower() =="y":
+                print("No such functionality available!\n ")
+                again = input("Do you want to try again[y]?: ")
+                if again.lower() =="y":
                     continue
                 else:
                     print("No such functionality available!")
                     break
-
+                
+    ## Login verification code for existing user
+                
     def verifyLogin(self):
         
         print("Welcome to Movie Analysis")
         while True:
             with sqlite3.connect("movie.db") as db:
                 curObject=db.cursor()
-            userType = input("Admin/Customer, Enter a/admin for Admin OR c/customer for Customer: ")
+            userType = input("Select your User type, Enter a/admin for Admin OR c/customer for Customer: ")
             if userType.lower() == "admin" or userType.lower() == "a" or userType.lower() == "customer" or userType.lower() == "c":
-                user = input("Enter your account name: ")
+                if userType.lower() == "admin" or userType.lower() == "a":
+                    userType = "Admin"
+                else:
+                    userType = "End User"
+                user = input("Enter your user name: ")
                 password = getpass.getpass("Password: ")
-                loginQuery = curObject.execute("SELECT ID,ROLE FROM MOVIEREVIEW WHERE USERNAME = '"+user+"' AND PASSWORD = '"+password+"'")
+                
+                ## Get results from database
+                loginQuery = curObject.execute("SELECT * FROM user_details WHERE USERNAME = '"+user+"' AND PASSWORD = '"+password+"' and ROLE = '"+userType+"'")
                 results=loginQuery.fetchone()
-                    #print(results[0])
-                if results:
+                if results != None:
+                    
+                    ## Compare whether the user is admin or customer and call the respective functions of that class
                     if results[1].lower() == "admin":
                         print("Welcome "+user+"!")
                         af = AdminFunction.AdminFunction()
                         af.getAdminRoles()
                         break
-                    elif results[1].lower() == "end user":
+                    else: 
                         print("Welcome "+user+"!")
                         uf = UserFunction.UserFunction(results)
-                        #uf.getUserRoles()
                         break
-                    else:
-                        again = input("Invalid Login credentials. Do you want to try again?(y/n):")
-                        if again.lower() =="n":
-                            break
                 else:
-                    print("Please either select admin/customer or a/c for login.")
-                    again = input("Do you want to try again?(y/n):")
-                    if again.lower() =="n":
-                        break               
+                    print("Invalid Username or Password.")
+                    again = input("Do you want to try again[y]? : ")
+                    if again.lower() =="y":
+                        continue
+                    else:
+                        print("You chose to Exit!")
+                        break
+            else:
+                print("Please select the correct User type")
+                    
+    ## Registration code for new user                
 
     def createUser(self):
+        
         while True:
+            ## Take user input
+            
             curObject=conn.cursor()
             user = input("Please enter the user name: ")
             password = input("Enter password: ")
-            confirmPass = input("Confirm Password")
-            print(user+password+confirmPass)
+            confirmPass = input("Confirm Password: ")
+            
+            ## if password matches insert data in database, else ask user to retry
+            
             if password == confirmPass:
-                curObject.execute("insert into MOVIEREVIEW (ID,ROLE,USERNAME,PASSWORD) values (10,'End User','"+user+"','"+password+"')");
+                curObject.execute("insert into user_details (ROLE,USERNAME,PASSWORD) values ('End User','"+user+"','"+password+"')");
                 conn.commit();
-                print(curObject.rowcount, "record inserted.")    
-                loginStatus = input("User creation is successful.Do you want to Login?[y/n]")
-                #while True:
+                print("Your login is successful!")    
+                loginStatus = input("User creation is successful.Do you want to Login?[y]: ")
                 if loginStatus.lower() == "y":
                     self.verifyLogin()
                     break
@@ -87,16 +104,15 @@ class ConnectDb:
                     break
                     
             else:
-                tryAgain = input("Passwords do not match! Would you like to try again?[y/n]")
-                if tryAgain.lower() == "n":
+                tryAgain = input("Passwords do not match! Would you like to try again?[y]: ")
+                if tryAgain.lower() == "y":
+                    continue
+                else:
                     exit()
                     
-    def getUserType():
-        curObject=conn.cursor()
-        loginQuery = curObject.execute("SELECT ID,ROLE FROM MOVIEREVIEW WHERE USERNAME = '"+user+"' AND PASSWORD = '"+password+"'")
-        results=loginQuery.fetchone()
-        return results
+## Create object of class and execute login
+if __name__ == "__main__":
+    dbase = ConnectDb()
 
-dbase = ConnectDb()
 
         
