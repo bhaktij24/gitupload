@@ -34,6 +34,6 @@ For installing packages in Linux, sudo apt-get install python-<module-name>
 5. Execution of program
 Download all the files from github reposiotry. Set the path (for windows only) of the shell and type python login.py
 ----------------------------------------------
-3. Author Info
+Author Info
 Email/contact : bjosh2@unh.newhaven.edu
                 uanan1@unh.newhaven.edu
