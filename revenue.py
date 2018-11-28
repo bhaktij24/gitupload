@@ -154,6 +154,10 @@ class revenue:
         #Displays data in tabular form
             pd.options.display.max_columns = None
         print(tabulate(df, headers='keys', tablefmt="orgtbl"))
+        
+    if __name__ == "__main__":
+        print("Sorry, to access revenue module please login with administrator credentials to the system.")
+        exit()
 
             
 
