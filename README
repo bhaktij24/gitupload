@@ -1,0 +1,34 @@
+------------------README-----------------------
+
+1. Inrtoduction
+2. Installation on Windows
+3. Installation on Mac OS
+4. Installation on Linux
+5. Execution of the program
+
+----------------------------------------------
+1. Introduction
+
+Analysis of movies is an application, that accepts the reviews and ratings of a movie for a movie and gets the details, processes it and displays it in visually attractive
+format for the analysts to draw conclusions from the outcome.
+
+2. Installation on Windows
+For the program to be able to perform the intented tasks, it is mandatory to install python 3.7x along with the other libraries such as, numpy, matplotlob, datetime,
+plotly, pandas, texttable, tabulate, sqlite3 
+
+For installing these packages in python, navigate to the ..\Python\Python37\Scripts directory in the command prompt and enter 
+pip install <module-name>
+
+For example: pip install numpy
+
+3. Installation on Mac OS
+
+For installing packages in Mac OS, sudo pip3 install <module-name>
+
+4. Installation on Linux
+
+For installing packages in Linux, sudo apt-get install python-<module-name>
+
+5. Execution of program
+Download all the files from github reposiotry. Set the path (for windows only) of the shell and type python login.py
+----------------------------------------------
