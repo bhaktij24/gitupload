@@ -163,6 +163,9 @@ class comparison:
 
         plt.show()
 
+    if __name__ == "__main__":
+        print("Sorry, to access comparison module please login with administrator credentials to the system.")
+        exit()
 
 
 
