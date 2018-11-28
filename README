@@ -2,7 +2,7 @@ Project Name - Analysis of Movies
 
 ------------------README-----------------------
 
-1. Inrtoduction
+1. Introduction
 2. Installation on Windows
 3. Installation on Mac OS
 4. Installation on Linux
@@ -16,7 +16,7 @@ format for the analysts to draw conclusions from the outcome.
 
 2. Installation on Windows
 For the program to be able to perform the intented tasks, it is mandatory to install python 3.7x along with the other libraries such as, numpy, matplotlob, datetime,
-plotly, pandas, texttable, tabulate, sqlite3 
+plotly, pandas, texttable, tabulate
 
 For installing these packages in python, navigate to the ..\Python\Python37\Scripts directory in the command prompt and enter 
 pip install <module-name>
