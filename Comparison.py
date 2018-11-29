@@ -59,7 +59,7 @@ class comparison:
         print(tabulate(df, headers='keys', tablefmt="orgtbl"))
 
   
-    # genre_movies_performancetrend() compares the movie genres that are performing well with respect to their poll value (IMDB Poll value above 6.5)
+    # genre_movies_performancetrend() compares the movie genres that are performing well with respect to their poll value (Poll value above 6.5)
     def genre_movies_performancetrend(self):
         #GRAPH 2 - COMPARISON GRAPH 2
         #SQL Command to extract movie genres with poll value> 6.5
@@ -80,13 +80,13 @@ class comparison:
         ax.plot(self.movie_genre_performingwell, self.pollvalue)
 
         #Set X Axis as MOVIE GENRE and y Axis as IMDB POLL VALUE and title of the graph
-        ax.set(xlabel='MOVIE GENRE ~ PERFORMING ABOVE OTHER MOVIES', ylabel='IMDB POLL VALUE',
+        ax.set(xlabel='MOVIE GENRE ~ PERFORMING ABOVE OTHER MOVIES', ylabel='POLL VALUE',
                title='Genre of movies performing well & received maximum good reviews from End Viewers')
         ax.grid()
         #Displays the graph
         plt.show()
         
-    #movies_heavy_criticism() compares the movie genres that are performing bad with respect to their poll value (IMDB Poll value <= 6.5)
+    #movies_heavy_criticism() compares the movie genres that are performing bad with respect to their poll value (Poll value <= 6.5)
     def movies_heavy_criticism(self):
         #GRAPH 3 - COMPARISON GRAPH 3
         #SQL Command to extract movie genres with poll value<= 6.5
@@ -106,7 +106,7 @@ class comparison:
         #Display Line Plot
         ax.plot(self.movie_genre_performingbad,self.pollvalue)
 
-        ax.set(xlabel='HEAVILY CRITICIZED MOVIES', ylabel='IMDB POLL VALUE',
+        ax.set(xlabel='HEAVILY CRITICIZED MOVIES', ylabel='POLL VALUE',
                title='Genre of movies performing bad & received maximum bad reviews from End Viewers')
         ax.grid()
         plt.show()
