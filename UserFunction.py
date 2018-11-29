@@ -88,7 +88,8 @@ class UserFunction:
                        
                        #if query result returns a row call the updateReview function
                        if getRating != None:
-                           print("Below is your previous ratings and review for this movie:\n",getRating[2] +" "+ getRating[3])
+                           print("Below is your previous ratings and review for this movie:\n")
+                           print("Your poll rating for the movie: ",getRating[2] +"\nYour Comments for the movie: "+ getRating[3])
                            updateComment = input("Enter any character to update your comment or press 'x' for Exit")
                            if updateComment.lower() =="x":
                                return ''
@@ -129,9 +130,12 @@ class UserFunction:
 
             #user input for ratings between 0-9
             pollRatingsInput = input("Enter the ratings from 0-9(1 being worst and 9 being excellent): ")
-
-            #compare the user input with string.digits
-            if pollRatingsInput not in string.digits:
+            if pollRatingsInput.isdigit():
+                pollRatingsInput = int(pollRatingsInput)
+            else:
+                pollRatingsInput = float(pollRatingsInput)
+            #compare the user input with int, float
+            if isinstance(pollRatingsInput,(int,float)) == False:
                     print("Ratings should be only a numeric value between 0-9")
                     answer = input("Press 'y' to try again, any other key to exit: ")
                     if answer.lower() == "y":
@@ -171,9 +175,12 @@ class UserFunction:
 
             #enter the ratings
             pollRatingsInput = input("Enter the ratings from 0-9(1 being worst and 9 being excellent): ")
-
+            if pollRatingsInput.isdigit():
+                pollRatingsInput = int(pollRatingsInput)
+            else:
+                pollRatingsInput = float(pollRatingsInput)
             #compare it with string.didits
-            if pollRatingsInput not in string.digits:
+            if isinstance(pollRatingsInput,(int,float)) == False:
                 print("Ratings should be only a numeric value between 0-9")
                 answer = input("Press 'y' to try again, any other key to exit: ")
                 if answer.lower() == "y":
@@ -207,9 +214,7 @@ class UserFunction:
                     self.checkReview()
                 else:
                     break
-
-import login
-
 if __name__ == "__main__":
     print("Sorry, to access movie reviews module please login with your user credentials to the system.")
     exit()
+import login
