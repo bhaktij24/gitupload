@@ -33,7 +33,7 @@ class AdminFunction:
                                                4.Analysis of Revenue Yielded(In million dollars) for a particular year\n")
                             
 
-               while True:
+                while True:
                     #Creating an object 'my' and accessing the class revenue from revenue.py file
                     my = revenue.revenue()
                     if revenue_graph_to_view  == "1":
