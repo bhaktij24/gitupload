@@ -6,7 +6,8 @@ Project Name - Analysis of Movies
 2. Installation on Windows
 3. Installation on Mac OS
 4. Installation on Linux
-5. Execution of the program
+5. Final SQL Script
+6. Execution of the program
 
 ----------------------------------------------
 1. Introduction
@@ -31,7 +32,10 @@ For installing packages in Mac OS, sudo pip3 install <module-name>
 
 For installing packages in Linux, sudo apt-get install python-<module-name>
 
-5. Execution of program
+5. After installation of all the libraries, set path(for windows) in the shell where all the files are saved, uncomment the contents of Final SQL Script and 
+execute the file by typing python Final SQL Script.py in the shell. Once this is done comment all the contents of this file. close the file.
+
+6. Execution of program
 Download all the files from github reposiotry. Set the path (for windows only) of the shell and type python login.py
 ----------------------------------------------
 Author Info
