@@ -1,0 +1,43 @@
+Project Name - Analysis of Movies
+
+------------------README-----------------------
+
+1. Introduction
+2. Installation on Windows
+3. Installation on Mac OS
+4. Installation on Linux
+5. Final SQL Script
+6. Execution of the program
+
+----------------------------------------------
+1. Introduction
+
+Analysis of movies is an application, that accepts the reviews and ratings of a movie for a movie and gets the details, processes it and displays it in visually attractive
+format for the analysts to draw conclusions from the outcome.
+
+2. Installation on Windows
+For the program to be able to perform the intented tasks, it is mandatory to install python 3.7x along with the other libraries such as, numpy, matplotlob, datetime,
+plotly, pandas, texttable, tabulate
+
+For installing these packages in python, navigate to the ..\Python\Python37\Scripts directory in the command prompt and enter 
+pip install <module-name>
+
+For example: pip install numpy
+
+3. Installation on Mac OS
+
+For installing packages in Mac OS, sudo pip3 install <module-name>
+
+4. Installation on Linux
+
+For installing packages in Linux, sudo apt-get install python-<module-name>
+
+5. After installation of all the libraries, set path(for windows) in the shell where all the files are saved, uncomment the contents of Final SQL Script and 
+execute the file by typing python Final SQL Script.py in the shell. Once this is done comment all the contents of this file. close the file.
+
+6. Execution of program
+Download all the files from github reposiotry. Set the path (for windows only) of the shell and type python login.py
+----------------------------------------------
+Author Info
+Email/contact : bjosh2@unh.newhaven.edu
+                uanan1@unh.newhaven.edu
